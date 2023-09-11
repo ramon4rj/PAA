@@ -44,9 +44,28 @@ class Grafo:
                 return False
             
         return True
+    
+#    def entrada(self):
+#        entrada = []
+#        for w, u, v in range(len(self.arestas)):
+#            ent = self.arestas[w]
+#            entrada.append(ent)
+#        #print(f"{u} -- {v} == {w[0]}")
+#        print(entrada)
 
     def rev_kruskal(self):
         resultado = []
+        entrada = []
+
+        #Trecho p/ imprimir a entrada
+        for w in range(len(self.arestas)):
+            u = self.arestas[w][1][0]
+            v = self.arestas[w][1][1]
+
+            w_ent = self.arestas[w]
+            entrada.append([w_ent, u, v])
+
+        #Sort em ordem decresente
         self.arestas = sorted(self.arestas, key=lambda item: item[0], reverse=True)
 
         #Função de busca nas arestas.
@@ -69,15 +88,25 @@ class Grafo:
             
                 #print("( %d, %d )" % (u, v))
 
+        print("Entrada: ")
+        for w, u, v in entrada:
+            print(f"{chr(65 + u)} -- {chr(65 + v)} == {w[0]}")
+
 
         print("Arestas na Minimum Spanning Tree:")
         #for w in resultado:
         for w, u, v in resultado:
             #print(f"{u} -- {v} == {w[0]}")
-            print(f"{chr( 65 + u)} -- {chr( 65 + v )} == {w[0]}")
+            print(f"{chr(65 + u)} -- {chr(65 + v)} == {w[0]}")
 
 
 grafo = Grafo(15)
+
+#grafo.add_aresta(0, 1, 23)
+#grafo.add_aresta(0, 8, 24)
+#grafo.add_aresta(1, 2, 30)
+#grafo.add_aresta(1, 7, 22)
+
 
 grafo.add_aresta(0, 1, 23)
 grafo.add_aresta(0, 8, 24)
@@ -117,4 +146,5 @@ grafo.add_aresta(12, 1, 20)
 
 
 grafo.rev_kruskal()
+
 
