@@ -13,7 +13,6 @@ class Grafo:
 
     # u-->v = caminho / w = distância
     def add_aresta(self, u, v, w):
-        
         #Adiciona a direção de u->v e v->u
         self.adj[u].append(v)
         self.adj[v].append(u)
@@ -44,14 +43,7 @@ class Grafo:
                 return False
             
         return True
-    
-#    def entrada(self):
-#        entrada = []
-#        for w, u, v in range(len(self.arestas)):
-#            ent = self.arestas[w]
-#            entrada.append(ent)
-#        #print(f"{u} -- {v} == {w[0]}")
-#        print(entrada)
+
 
     def rev_kruskal(self):
         resultado = []
@@ -73,7 +65,7 @@ class Grafo:
             u = self.arestas[w][1][0]
             v = self.arestas[w][1][1]
             
-            self.adj[u].remove(v)    #[x,y,z] --> [w,z]
+            self.adj[u].remove(v)
             self.adj[v].remove(u)
 
 
@@ -84,14 +76,11 @@ class Grafo:
                 self.adj[u].append(v)
                 self.adj[v].append(u)
                 resultado.append([w, u, v])
-                #resultado.append([w])
             
-                #print("( %d, %d )" % (u, v))
 
         print("Entrada: ")
         for w, u, v in entrada:
             print(f"{chr(65 + u)} -- {chr(65 + v)} == {w[0]}")
-
 
         print("Arestas na Minimum Spanning Tree:")
         #for w in resultado:
