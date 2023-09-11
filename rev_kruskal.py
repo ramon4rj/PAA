@@ -13,9 +13,7 @@ class Grafo:
 
     # u-->v = caminho / w = distância
     def add_aresta(self, u, v, w):
-        #self.arestas.append([u, v, w])   ## Ordem original ##
-        #self.arestas.append([w, u, v])
-
+        
         #Adiciona a direção de u->v e v->u
         self.adj[u].append(v)
         self.adj[v].append(u)
@@ -29,10 +27,8 @@ class Grafo:
         #Percorre o resto do grafo
         #for i in self.arestas[v]:
         for i in self.adj[v]:
-            #print(ls)
+            
             if not visited[i]:
-                #print("dfs: ")
-                #print(visited)
                 self.dfs(i, visited)
         #Retorna true se o grafo for conexo
 
@@ -45,52 +41,43 @@ class Grafo:
         #Se todos os nós ainda forem alcançados retorna True
         for i in range(1, self.V):
             if not visited[i]:
-                #print(visited)
-                #print("FALSO ")
                 return False
             
         return True
 
     def rev_kruskal(self):
         resultado = []
-        a = self.arestas = sorted(self.arestas, key=lambda item: item[0], reverse=True)
-        #print("Sorted: ")
-        #print(a)
-        #print(ls)
-        #pai = list(range(self.V))
+        self.arestas = sorted(self.arestas, key=lambda item: item[0], reverse=True)
 
-        #Função de busca na lista que guarda as arestas.  Union-find
+        #Função de busca nas arestas.
         for w in range(len(self.arestas)):
-        #for u, v, w in self.arestas:       ## Ordem original ##
             u = self.arestas[w][1][0]
             v = self.arestas[w][1][1]
             
             self.adj[u].remove(v)    #[x,y,z] --> [w,z]
             self.adj[v].remove(u)
 
-            #print(self.arestas)
 
             #Checar se remover a aresta desconeta o grafo
             #Se sim, adiciona a aresta de volta
             if self.connected() == False:
+                w = self.arestas[w]
                 self.adj[u].append(v)
                 self.adj[v].append(u)
-                resultado.append([u, v])
+                resultado.append([w, u, v])
+                #resultado.append([w])
             
-                print("( %d, %d )" % (u, v))
-        
-        #print("raiz u: ")
-        #print(resultado)
+                #print("( %d, %d )" % (u, v))
+
 
         print("Arestas na Minimum Spanning Tree:")
-        for u, v in resultado:
-            print(f"{u} -- {v}")
-            #print((f"{chr(65 + u)} -- {chr(65 + v)}"))
-            #print(f"{chr(65 + u)} -- {chr(65 + v)} == {w}")
+        #for w in resultado:
+        for w, u, v in resultado:
+            #print(f"{u} -- {v} == {w[0]}")
+            print(f"{chr( 65 + u)} -- {chr( 65 + v )} == {w[0]}")
 
-# Exemplo de uso
+
 grafo = Grafo(15)
-
 
 grafo.add_aresta(0, 1, 23)
 grafo.add_aresta(0, 8, 24)
@@ -128,10 +115,6 @@ grafo.add_aresta(11, 13, 14)
 grafo.add_aresta(13, 12, 2)
 grafo.add_aresta(12, 1, 20)
 
-
-
-
-#print(grafo.arestas)
 
 grafo.rev_kruskal()
 
